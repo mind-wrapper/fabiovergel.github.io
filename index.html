@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="es" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fabio Vergel - Estudiante de Ciencias de la Computación</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2980b9;
+            --accent-color: #e74c3c;
+        }
+
+        [data-bs-theme="light"] {
+            --bs-body-bg: #f9f9f9;
+            --bs-body-color: #333;
+            --bs-card-bg: #fff;
+            --bs-card-color: #333;
+        }
+
+        [data-bs-theme="dark"] {
+            --bs-body-bg: #1a1a2e;
+            --bs-body-color: #ecf0f1;
+            --bs-card-bg: #16213e;
+            --bs-card-color: #ecf0f1;
+        }
+
+        .bg-custom-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
+        }
+
+        .text-custom-primary {
+            color: var(--primary-color) !important;
+        }
+
+        .border-custom-primary {
+            border-color: var(--primary-color) !important;
+        }
+
+        .card-custom {
+            background-color: var(--bs-card-bg);
+            color: var(--bs-card-color);
+            transition: transform 0.3s ease;
+            height: 100%;
+        }
+
+        .card-custom:hover {
+            transform: translateY(-5px);
+        }
+
+        .skill-tag {
+            background-color: rgba(52, 152, 219, 0.2);
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+            font-size: 1.1rem; /* Tamaño de fuente aumentado */
+            padding: 0.6rem 1rem; /* Padding aumentado para hacerlas más grandes */
+            margin: 0.3rem; /* Margen ajustado */
+        }
+
+        .skill-tag:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .section-title {
+            position: relative;
+            margin-bottom: 3rem;
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+
+        .profile-img {
+            width: 180px;
+            height: 180px;
+            border: 5px solid white;
+            background-image: url('https://i.imgur.com/3J8lZ6O.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .timeline {
+            position: relative;
+        }
+
+        .timeline::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 2px;
+            background-color: var(--primary-color);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .timeline-content {
+            background-color: var(--bs-card-bg);
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        .timeline-content::after {
+            content: "";
+            position: absolute;
+            top: 20px;
+            width: 20px;
+            height: 20px;
+            background-color: var(--bs-card-bg);
+            transform: rotate(45deg);
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content::after {
+            right: -10px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content::after {
+            left: -10px;
+        }
+
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-item {
+                padding-left: 70px;
+            }
+
+            .timeline-content::after {
+                left: -10px !important;
+            }
+        }
+
+        .language-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem;
+            background-color: rgba(52, 152, 219, 0.1);
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .language-level {
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .theme-toggle {
+            border: none;
+            background: transparent;
+            color: var(--bs-body-color);
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .navbar-toggler {
+            border: none;
+        }
+
+        .navbar-toggler:focus {
+            box-shadow: none;
+        }
+
+        .project-img {
+            height: 150px;
+            background-color: var(--primary-color);
+            opacity: 0.8;
+        }
+
+        .project-card .card-body {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .project-content {
+            flex-grow: 1;
+        }
+
+        /* Estilos para las tarjetas de habilidades más pequeñas */
+        .skills-section .card-custom {
+            min-height: 200px; /* Reducimos la altura mínima */
+        }
+
+        .skills-section .card-body {
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem; /* Reducimos el padding interno */
+        }
+
+        .skills-section .card-title {
+            flex-shrink: 0; /* Evita que el título se reduzca */
+            font-size: 1.2rem; /* Tamaño de fuente ligeramente reducido */
+            margin-bottom: 1.2rem; /* Espacio ajustado */
+        }
+
+        .skills-section .skills-tags-container {
+            flex-grow: 1; /* Permite que este contenedor ocupe el espacio disponible */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        /* Ajuste para que las burbujas de habilidades sean más grandes */
+        .skills-section .skill-tag {
+            font-size: 1.1rem;
+            padding: 0.6rem 1rem;
+        }
+    </style>
+</head>
+<body class="bg-body text-body">
+    <!-- Header -->
+    <header class="bg-custom-primary text-white py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-12 text-center">
+                    <div class="profile-img rounded-circle mx-auto mb-3"></div>
+                    <h1 class="display-5 fw-bold mb-2">Fabio Vergel</h1>
+                    <p class="lead mb-4">Estudiante de Ciencias de la Computación - UCLV</p>
+                    <div class="d-flex flex-column flex-md-row justify-content-center gap-3">
+                        <a href="mailto:fabiovergelp@gmail.com" class="text-white text-decoration-none d-flex align-items-center justify-content-center">
+                            <i class="bi bi-envelope me-2"></i> fabiovergelp@gmail.com
+                        </a>
+                        <a href="https://github.com/mind-wrapper" target="_blank" class="text-white text-decoration-none d-flex align-items-center justify-content-center">
+                            <i class="bi bi-github me-2"></i> GitHub
+                        </a>
+                        <span class="text-white d-flex align-items-center justify-content-center">
+                            <i class="bi bi-geo-alt me-2"></i> Villa Clara, Cuba
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg sticky-top bg-body shadow-sm">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="bi bi-list"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">Sobre Mí</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#education">Educación</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#skills">Habilidades</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#experience">Experiencia</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#projects">Proyectos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contacto</a>
+                    </li>
+                </ul>
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="bi bi-sun"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- About Section -->
+    <section id="about" class="py-5">
+        <div class="container">
+            <h2 class="section-title text-center text-custom-primary mb-5">Sobre Mí</h2>
+            <div class="row">
+                <div class="col-lg-6 mb-4">
+                    <div class="card card-custom h-100 border-0 shadow">
+                        <div class="card-body">
+                            <h3 class="card-title text-custom-primary mb-3">Estudiante de Ciencias de la Computación</h3>
+                            <p class="card-text">Soy un estudiante de tercer año de Ciencias de la Computación en la Universidad Central "Marta Abreu" de Las Villas (UCLV), apasionado por el desarrollo de software y la inteligencia artificial.</p>
+                            <p class="card-text">Me encanta resolver problemas complejos y crear soluciones innovadoras utilizando las últimas tecnologías. Mi objetivo es continuar aprendiendo y desarrollándome profesionalmente en el campo de la tecnología.</p>
+                            <p class="card-text">Actualmente, me enfoco en el desarrollo backend y en aplicaciones de machine learning, combinando mis conocimientos en Python, Django y TensorFlow para crear soluciones escalables y eficientes.</p>
+                            <p class="card-text">Poseo un nivel <strong>C1 de inglés</strong>, lo que me permite comunicarme efectivamente en entornos profesionales y técnicos, así como acceder a documentación técnica y recursos académicos en este idioma.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="row g-3">
+                        <div class="col-sm-6">
+                            <div class="card card-custom text-center border-0 shadow h-100">
+                                <div class="card-body d-flex flex-column justify-content-center">
+                                    <i class="bi bi-filetype-py text-custom-primary display-6 mb-3"></i>
+                                    <h5 class="card-title">Python</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="card card-custom text-center border-0 shadow h-100">
+                                <div class="card-body d-flex flex-column justify-content-center">
+                                    <i class="bi bi-code-slash text-custom-primary display-6 mb-3"></i>
+                                    <h5 class="card-title">C/C++</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="card card-custom text-center border-0 shadow h-100">
+                                <div class="card-body d-flex flex-column justify-content-center">
+                                    <i class="bi bi-filetype-js text-custom-primary display-6 mb-3"></i>
+                                    <h5 class="card-title">JavaScript</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="card card-custom text-center border-0 shadow h-100">
+                                <div class="card-body d-flex flex-column justify-content-center">
+                                    <i class="bi bi-database text-custom-primary display-6 mb-3"></i>
+                                    <h5 class="card-title">PostgreSQL</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="py-5 bg-body-secondary">
+        <div class="container">
+            <h2 class="section-title text-center text-custom-primary mb-5">Educación</h2>
+            <div class="timeline">
+                <div class="row timeline-item">
+                    <div class="col-md-6">
+                        <div class="timeline-content">
+                            <div class="text-custom-primary fw-bold mb-2">2021 - Presente</div>
+                            <h4 class="mb-2">Licenciatura en Ciencias de la Computación</h4>
+                            <p class="mb-2">Universidad Central "Marta Abreu" de Las Villas (UCLV)</p>
+                            <p class="mb-0">Actualmente cursando el tercer año de la carrera con excelentes resultados académicos. Cursos relevantes incluyen: Estructuras de Datos, Algoritmos, Bases de Datos, Inteligencia Artificial y Programación Web.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row timeline-item">
+                    <div class="col-md-6 offset-md-6">
+                        <div class="timeline-content">
+                            <div class="text-custom-primary fw-bold mb-2">2018 - 2021</div>
+                            <h4 class="mb-2">Instituto Pre Vocacional de Ciencias Exactas Eusebio Olivera</h4>
+                            <p class="mb-2">Enfoque en ciencias exactas con preparación intensiva en matemáticas, física e informática.</p>
+                            <p class="mb-0">Graduado con honores y participación destacada en olimpiadas de matemáticas y concursos de programación.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-5 skills-section">
+        <div class="container">
+            <h2 class="section-title text-center text-custom-primary mb-5">Habilidades Técnicas</h2>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="card card-custom border-0 shadow h-100">
+                        <div class="card-body">
+                            <h4 class="card-title text-custom-primary text-center mb-3">Lenguajes de Programación</h4>
+                            <div class="skills-tags-container">
+                                <div class="d-flex flex-wrap gap-2 justify-content-center">
+                                    <span class="skill-tag badge rounded-pill">Python</span>
+                                    <span class="skill-tag badge rounded-pill">C/C++</span>
+                                    <span class="skill-tag badge rounded-pill">JavaScript</span>
+                                    <span class="skill-tag badge rounded-pill">HTML/CSS</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card card-custom border-0 shadow h-100">
+                        <div class="card-body">
+                            <h4 class="card-title text-custom-primary text-center mb-3">Frameworks & Librerías</h4>
+                            <div class="skills-tags-container">
+                                <div class="d-flex flex-wrap gap-2 justify-content-center">
+                                    <span class="skill-tag badge rounded-pill">Django</span>
+                                    <span class="skill-tag badge rounded-pill">TensorFlow</span>
+                                    <span class="skill-tag badge rounded-pill">Langchain</span>
+                                    <span class="skill-tag badge rounded-pill">Pandas</span>
+                                    <span class="skill-tag badge rounded-pill">NumPy</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card card-custom border-0 shadow h-100">
+                        <div class="card-body">
+                            <h4 class="card-title text-custom-primary text-center mb-3">Bases de Datos</h4>
+                            <div class="skills-tags-container">
+                                <div class="d-flex flex-wrap gap-2 justify-content-center">
+                                    <span class="skill-tag badge rounded-pill">PostgreSQL</span>
+                                    <span class="skill-tag badge rounded-pill">Neo4j</span>
+                                    <span class="skill-tag badge rounded-pill">SQL</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card card-custom border-0 shadow h-100">
+                        <div class="card-body">
+                            <h4 class="card-title text-custom-primary text-center mb-3">Herramientas</h4>
+                            <div class="skills-tags-container">
+                                <div class="d-flex flex-wrap gap-2 justify-content-center">
+                                    <span class="skill-tag badge rounded-pill">Git</span>
+                                    <span class="skill-tag badge rounded-pill">Linux</span>
+                                    <span class="skill-tag badge rounded-pill">Docker</span>
+                                    <span class="skill-tag badge rounded-pill">Ollama</span>
+                                    <span class="skill-tag badge rounded-pill">APIs REST</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-5 bg-body-secondary">
+        <div class="container">
+            <h2 class="section-title text-center text-custom-primary mb-5">Experiencia Laboral</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card card-custom border-0 shadow">
+                        <div class="card-header bg-custom-primary text-white">
+                            <h3 class="card-title mb-0">Desarrollador Backend</h3>
+                            <p class="mb-0">Imperial Seeds</p>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">Desarrollo y mantenimiento del backend para <strong><a href="https://imperialseedsusa.com" target="_blank" class="text-custom-primary">imperialseedsusa.com</a></strong>, un sitio web de comercio electrónico especializado en semillas.</p>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item bg-transparent">Implementación de API RESTful con Django</li>
+                                <li class="list-group-item bg-transparent">Gestión de bases de datos PostgreSQL y optimización de consultas</li>
+                                <li class="list-group-item bg-transparent">Integración de sistemas de pago y envío</li>
+                                <li class="list-group-item bg-transparent">Colaboración con el equipo frontend para garantizar una experiencia de usuario óptima</li>
+                                <li class="list-group-item bg-transparent">Implementación de medidas de seguridad y autenticación de usuarios</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-5">
+        <div class="container">
+            <h2 class="section-title text-center text-custom-primary mb-5">Proyectos Destacados</h2>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="card card-custom border-0 shadow h-100">
+                        <div class="project-img bg-custom-primary"></div>
+                        <div class="card-body">
+                            <div class="project-content">
+                                <h4 class="card-title">Imperial Seeds</h4>
+                                <p class="card-text">Desarrollo completo del backend para <a href="https://imperialseedsusa.com" target="_blank" class="text-custom-primary">imperialseedsusa.com</a>, un sitio web de comercio electrónico especializado en semillas, implementando funcionalidades de carrito de compras, sistema de pagos y gestión de usuarios.</p>
+                            </div>
+                            <div class="mt-auto">
+                                <div class="d-flex flex-wrap gap-2">
+                                    <span class="badge bg-secondary">Django</span>
+                                    <span class="badge bg-secondary">Python</span>
+                                    <span class="badge bg-secondary">PostgreSQL</span>
+                                    <span class="badge bg-secondary">JavaScript</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card card-custom border-0 shadow h-100">
+                        <div class="project-img bg-danger"></div>
+                        <div class="card-body">
+                            <div class="project-content">
+                                <h4 class="card-title">Red Neuronal para Detección de Anomalías en Radiografías</h4>
+                                <p class="card-text">Desarrollo de una red neuronal convolucional capaz de detectar anomalías en radiografías de tórax para una investigación universitaria. El modelo fue entrenado con un dataset especializado y optimizado para identificar patrones relevantes en imágenes médicas.</p>
+                            </div>
+                            <div class="mt-auto">
+                                <div class="d-flex flex-wrap gap-2">
+                                    <span class="badge bg-secondary">Python</span>
+                                    <span class="badge bg-secondary">TensorFlow</span>
+                                    <span class="badge bg-secondary">Keras</span>
+                                    <span class="badge bg-secondary">OpenCV</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card card-custom border-0 shadow h-100">
+                        <div class="project-img bg-success"></div>
+                        <div class="card-body">
+                            <div class="project-content">
+                                <h4 class="card-title">Chatbot con RAG para la UCLV</h4>
+                                <p class="card-text">Creación de un chatbot inteligente que funciona con un sistema RAG (Retrieval-Augmented Generation) alojado en los servidores de la UCLV. El sistema proporciona respuestas precisas basadas en la documentación institucional y recursos académicos.</p>
+                            </div>
+                            <div class="mt-auto">
+                                <div class="d-flex flex-wrap gap-2">
+                                    <span class="badge bg-secondary">Python</span>
+                                    <span class="badge bg-secondary">Langchain</span>
+                                    <span class="badge bg-secondary">Ollama</span>
+                                    <span class="badge bg-secondary">Django</span>
+                                    <span class="badge bg-secondary">PostgreSQL</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-5 bg-body-secondary">
+        <div class="container">
+            <h2 class="section-title text-center text-custom-primary mb-5">Contacto</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <p class="lead mb-4">¿Interesado en colaborar o tienes alguna pregunta? No dudes en contactarme.</p>
+                    <div class="d-flex flex-column flex-md-row justify-content-center gap-4">
+                        <a href="mailto:fabiovergelp@gmail.com" class="btn btn-primary d-inline-flex align-items-center">
+                            <i class="bi bi-envelope me-2"></i> fabiovergelp@gmail.com
+                        </a>
+                        <a href="https://github.com/mind-wrapper" target="_blank" class="btn btn-outline-primary d-inline-flex align-items-center">
+                            <i class="bi bi-github me-2"></i> GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-custom-primary text-white py-4">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">&copy; 2023 Fabio Vergel. Todos los derechos reservados.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <div class="d-flex justify-content-center justify-content-md-end gap-3">
+                        <a href="https://github.com/mind-wrapper" target="_blank" class="text-white fs-5">
+                            <i class="bi bi-github"></i>
+                        </a>
+                        <a href="mailto:fabiovergelp@gmail.com" class="text-white fs-5">
+                            <i class="bi bi-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Tema oscuro por defecto
+        document.documentElement.setAttribute('data-bs-theme', 'dark');
+        
+        // Toggle de tema
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+        
+        themeToggle.addEventListener('click', function() {
+            const currentTheme = document.documentElement.getAttribute('data-bs-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            document.documentElement.setAttribute('data-bs-theme', newTheme);
+            themeIcon.className = newTheme === 'dark' ? 'bi bi-sun' : 'bi bi-moon';
+            
+            // Guardar preferencia
+            localStorage.setItem('theme', newTheme);
+        });
+        
+        // Cerrar navbar al hacer clic en un enlace (en móviles)
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                const navbarCollapse = document.getElementById('navbarNav');
+                if (navbarCollapse.classList.contains('show')) {
+                    new bootstrap.Collapse(navbarCollapse).toggle();
+                }
+            });
+        });
+        
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
